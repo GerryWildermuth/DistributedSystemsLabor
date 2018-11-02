@@ -1,6 +1,6 @@
 package com.example.DistributedSystemsLabor.Controller;
 
-import com.example.DistributedSystemsLabor.Model.AirportRepository;
+import com.example.DistributedSystemsLabor.ModelRepository.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,14 +9,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 class HomeController
 {
-    public HomeController() { }
+    public HomeController() {
+    }
 
     @Autowired
-    private AirportRepository airportRepository;
+    public AirportRepository airportRepository;
+
 
     @GetMapping("/Index")
     public ModelAndView Index()
     {
-    return new ModelAndView("Home.html","allAirports",airportRepository.findAll());
+        return new ModelAndView("Home.html","allAirports",airportRepository.findAll());
     }
 }

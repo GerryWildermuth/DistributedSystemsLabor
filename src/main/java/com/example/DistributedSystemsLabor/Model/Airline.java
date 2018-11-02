@@ -4,16 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Airport
+public class Airline
 {
-    public Airport() {
+    public Airline(@NotNull String name) {
+        Name = name;
+    }
+
+    public Airline() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
+    @NotNull
     private String Name;
 
     public String getName() {
@@ -21,7 +27,7 @@ public class Airport
     }
 
     public void setName(String name) {
-        this.Name = name;
+        Name = name;
     }
 
     public Long getId() {

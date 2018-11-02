@@ -5,23 +5,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
-public class Airport
+public class Runway
 {
-    public Airport() {
+    public Runway(boolean locked) {
+        Locked = locked;
+    }
+
+    public Runway() {
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    private String Name;
+    private boolean Locked;
 
-    public String getName() {
-        return Name;
+    public boolean isLocked() {
+        return Locked;
     }
 
-    public void setName(String name) {
-        this.Name = name;
+    public void setLocked(boolean locked) {
+        Locked = locked;
     }
 
     public Long getId() {
