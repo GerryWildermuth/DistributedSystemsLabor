@@ -3,6 +3,9 @@ package com.example.DistributedSystemsLabor.Controller;
 import com.example.DistributedSystemsLabor.Model.Airline;
 import com.example.DistributedSystemsLabor.ModelRepository.AirlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +30,13 @@ public class AirlineController {
     }
 
     @PostMapping("/airline")
-    public void CreateAirline(@RequestBody Airline airline)
+    public ResponseEntity<?> CreateAirline(@RequestBody Airline airline, BindingResult result)
     {
-        airlineRepository.save(airline);
+        if(result.hasErrors())
+        {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(airlineRepository.save(airline), HttpStatus.CREATED);
     }
     
     @DeleteMapping("/airline/{id}")

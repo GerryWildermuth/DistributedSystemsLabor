@@ -6,6 +6,9 @@ import com.example.DistributedSystemsLabor.Model.Identifier;
 import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
 import com.example.DistributedSystemsLabor.ModelRepository.IdentifierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -38,10 +41,15 @@ public class AirplaneController {
     }
 
     @PostMapping("/airplane")
-    public void CreateAirplane(@RequestBody Airplane airplane,String IdentifierName)
+    public ResponseEntity<?> CreateAirplane(@RequestBody Airplane airplane, String IdentifierName, BindingResult result)
     {
-        airplaneRepository.save(airplane);
+        if(result.hasErrors())
+        {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        ResponseEntity<Airplane> airplaneResponseEntity = new ResponseEntity<>(airplaneRepository.save(airplane), HttpStatus.CREATED);
         identifierRepository.save(new Identifier(IdentifierName,airplane));
+        return airplaneResponseEntity;
     }
 
     @GetMapping("/sample")
