@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DistributedSystemsLaborApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(DistributedSystemsLaborApplication.class, args);
-
-	}
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(DistributedSystemsLaborApplication.class, args);
+    }
 }
