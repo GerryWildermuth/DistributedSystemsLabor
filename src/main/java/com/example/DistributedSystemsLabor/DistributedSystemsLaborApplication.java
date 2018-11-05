@@ -8,6 +8,5 @@ public class DistributedSystemsLaborApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DistributedSystemsLaborApplication.class, args);
-
 	}
 }
