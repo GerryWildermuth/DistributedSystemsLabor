@@ -10,6 +10,8 @@ import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class RunwayController {
     public AirplaneRepository airplaneRepository;
 
     @GetMapping("/runways")
-    public List<Runway> AllRunway(){
+    public List<Runway> AllRunways(){
         List<Runway> runways = runwayRepository.findAll();
         return runways;
     }
@@ -67,6 +69,7 @@ public class RunwayController {
                             parking.setLocked(true);
                             airplane.setRunway(runway);
                             airplane.setParking(parking);
+                            airplane.setRealArrivalTime(Timestamp.valueOf(LocalDateTime.now()));
                             airplane.setStatus(Status.Landed);
                             runwayRepository.save(runway);
                             parkingRepository.save(parking);

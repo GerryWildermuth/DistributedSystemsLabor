@@ -38,9 +38,10 @@ public class AirplaneController {
     }
 
     @PostMapping("/airplane")
-    public void CreateAirplane(@RequestBody Airplane airplane)
+    public void CreateAirplane(@RequestBody Airplane airplane,String IdentifierName)
     {
         airplaneRepository.save(airplane);
+        identifierRepository.save(new Identifier(IdentifierName,airplane));
     }
 
     @GetMapping("/sample")

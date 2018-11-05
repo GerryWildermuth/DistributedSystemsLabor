@@ -1,6 +1,7 @@
 package com.example.DistributedSystemsLabor.Model;
 
 import com.example.DistributedSystemsLabor.Enums.Status;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -32,13 +33,16 @@ public class Airplane
     private Timestamp RealArrivalTime;
     @OneToOne
     @JoinColumn(unique = true)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     private Identifier identifier;
     private Status status = Status.Other;
     @OneToOne
     @JoinColumn(unique = true)
+    @Cascade(org.hibernate.annotations.CascadeType.DETACH)
     private Runway runway;
     @OneToOne
     @JoinColumn(unique = true)
+    @Cascade(org.hibernate.annotations.CascadeType.DETACH)
     private Parking parking;
 
     public Runway getRunway() {
