@@ -8,7 +8,6 @@ public class Identifier
 {
     public Identifier(@NotNull String name) {
         Name = name;
-        this.airplane = airplane;
     }
 
     public Identifier(@NotNull String name, Airplane airplane) {

@@ -2,14 +2,20 @@ package com.example.DistributedSystemsLabor.Controller;
 
 import com.example.DistributedSystemsLabor.Enums.Status;
 import com.example.DistributedSystemsLabor.Model.Airplane;
+import com.example.DistributedSystemsLabor.Model.Identifier;
 import com.example.DistributedSystemsLabor.Model.Parking;
 import com.example.DistributedSystemsLabor.Model.Runway;
 import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
 import com.example.DistributedSystemsLabor.ModelRepository.ParkingRepositiory;
 import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,7 +36,7 @@ public class RunwayController {
     public AirplaneRepository airplaneRepository;
 
     @GetMapping("/runways")
-    public List<Runway> AllRunway(){
+    public List<Runway> AllRunways(){
         List<Runway> runways = runwayRepository.findAll();
         return runways;
     }
@@ -41,10 +47,15 @@ public class RunwayController {
     }
 
     @PostMapping("/runway")
-    public void CreateRunway(@RequestBody Runway runway)
+    public ResponseEntity<?> CreateRunway(@RequestBody Runway runway, BindingResult result)
     {
+        if(result.hasErrors())
+        {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         if(runway.getId()<4)
-        runwayRepository.save(runway);
+            return new ResponseEntity<>(runwayRepository.save(runway), HttpStatus.CREATED);
+        return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("runway/landing")
@@ -67,6 +78,7 @@ public class RunwayController {
                             parking.setLocked(true);
                             airplane.setRunway(runway);
                             airplane.setParking(parking);
+                            airplane.setRealArrivalTime(Timestamp.valueOf(LocalDateTime.now()));
                             airplane.setStatus(Status.Landed);
                             runwayRepository.save(runway);
                             parkingRepository.save(parking);

@@ -8,6 +8,9 @@ import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
 import com.example.DistributedSystemsLabor.ModelRepository.ParkingRepositiory;
 import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -28,10 +31,9 @@ public class ParkingController {
     @Autowired
     public AirplaneRepository airplaneRepository;
 
-    @GetMapping("/parkings")
+    @GetMapping("/parking's")
     public List<Parking> AllParkings(){
-        List<Parking> parkings = parkingRepository.findAll();
-        return parkings;
+        return parkingRepository.findAll();
     }
 
     @GetMapping("/parking/{id}")
@@ -40,10 +42,15 @@ public class ParkingController {
     }
 
     @PostMapping("/parking")
-    public void CreateParking(@RequestBody Parking parking)
+    public ResponseEntity<?> CreateParking(@RequestBody Parking parking, BindingResult result)
     {
+        if(result.hasErrors())
+        {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         if(parking.getId()<8)
-        parkingRepository.save(parking);
+                return new ResponseEntity<>(parkingRepository.save(parking), HttpStatus.CREATED);
+        return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/parking/park")
