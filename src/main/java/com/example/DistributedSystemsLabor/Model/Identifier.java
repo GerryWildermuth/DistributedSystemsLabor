@@ -6,7 +6,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Identifier
 {
-    public Identifier(@NotNull String name, @NotNull Airplane airplane) {
+    public Identifier(@NotNull String name) {
+        Name = name;
+        this.airplane = airplane;
+    }
+
+    public Identifier(@NotNull String name, Airplane airplane) {
         Name = name;
         this.airplane = airplane;
     }
@@ -19,7 +24,6 @@ public class Identifier
     private Long Number;
     @NotNull
     private String Name;
-    @NotNull
     @OneToOne
     private Airplane airplane;
 

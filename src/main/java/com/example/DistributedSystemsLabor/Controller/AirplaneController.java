@@ -1,18 +1,17 @@
 package com.example.DistributedSystemsLabor.Controller;
 
 import com.example.DistributedSystemsLabor.Enums.Status;
-import com.example.DistributedSystemsLabor.Model.Airline;
 import com.example.DistributedSystemsLabor.Model.Airplane;
 import com.example.DistributedSystemsLabor.Model.Identifier;
-import com.example.DistributedSystemsLabor.Model.Runway;
 import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
 import com.example.DistributedSystemsLabor.ModelRepository.IdentifierRepository;
-import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController()
 public class AirplaneController {
@@ -56,11 +55,21 @@ public class AirplaneController {
         airplaneRepository.save(airplane);
     }
 
-
-
     @DeleteMapping("/airplane/{id}")
     public void DeleteAirplane(@PathVariable Long id)
     {
         airplaneRepository.deleteById(id);
+    }
+
+    @GetMapping("/initialise")
+    public void initialise()
+    {
+        Stream.of(
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()), new Identifier("TurkishAirlines1"), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines2"), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines3"), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines4"), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines5"), Status.Flying)
+        ).forEach(airplaneRepository::save);
     }
 }
