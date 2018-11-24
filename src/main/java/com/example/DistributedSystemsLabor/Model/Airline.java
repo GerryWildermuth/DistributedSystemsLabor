@@ -18,7 +18,7 @@ public class Airline
     private Long Id;
     @NotNull
     private String Name;
-    @OneToMany
+    @ManyToOne
     private Airplane airplane;
 
     public Airplane getAirplane() {
