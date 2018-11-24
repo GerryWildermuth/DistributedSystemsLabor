@@ -45,6 +45,7 @@ public class Airplane
     @Cascade(org.hibernate.annotations.CascadeType.DETACH)
     private Parking parking;
 
+
     public Runway getRunway() {
         return runway;
     }
