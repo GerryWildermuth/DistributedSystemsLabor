@@ -73,12 +73,26 @@ public class AirplaneController {
     @GetMapping("/initialise")
     public void initialise()
     {
+        Identifier first;
+        Identifier second;
+        Identifier third;
+        Identifier fourth;
+        Identifier fifth;
+
         Stream.of(
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), new Identifier("TurkishAirlines1"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines2"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines3"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines4"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines5"), Status.Flying)
+                first= new Identifier("TurkishAirlines1"),
+                second = new Identifier("TurkishAirlines2"),
+                third = new Identifier("TurkishAirlines3"),
+                fourth = new Identifier("TurkishAirlines4"),
+                fifth = new Identifier("TurkishAirlines5")
+        ).forEach(identifierRepository::save);
+
+        Stream.of(
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),first, Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),second, Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),third, Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),fourth, Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()),fifth, Status.Flying)
         ).forEach(airplaneRepository::save);
     }
 }
