@@ -19,7 +19,7 @@ public class Airline
     @NotNull
     private String Name;
     @ManyToOne
-    private Airplane airplane;
+    private Airplane airplane; // Keine Liste?
 
     public Airplane getAirplane() {
         return airplane;

@@ -18,6 +18,9 @@ import java.util.stream.Stream;
 
 @RestController()
 public class AirplaneController {
+
+    private boolean IsInit = false;
+
     public AirplaneController()
     {
     }
@@ -70,9 +73,15 @@ public class AirplaneController {
         airplaneRepository.deleteById(id);
     }
 
-    @GetMapping("/initialise")
-    public void initialise()
+    @GetMapping("/airplane/initialize")
+    public void initialize()
     {
+        // Run Init Code only once
+        if(IsInit){
+            return;
+        }
+        IsInit = true;
+
         Identifier first;
         Identifier second;
         Identifier third;
@@ -80,19 +89,19 @@ public class AirplaneController {
         Identifier fifth;
 
         Stream.of(
-                first= new Identifier("TurkishAirlines1"),
-                second = new Identifier("TurkishAirlines2"),
-                third = new Identifier("TurkishAirlines3"),
-                fourth = new Identifier("TurkishAirlines4"),
-                fifth = new Identifier("TurkishAirlines5")
+                first= new Identifier("ESAIR-1"),
+                second = new Identifier("ESAIR-2"),
+                third = new Identifier("ESAIR-3"),
+                fourth = new Identifier("ESAIR-4"),
+                fifth = new Identifier("ESAIR-5")
         ).forEach(identifierRepository::save);
 
         Stream.of(
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),first, Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),second, Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),third, Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),fourth, Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),fifth, Status.Flying)
+                new Airplane(first, Status.Flying),
+                new Airplane(second, Status.Flying),
+                new Airplane(third, Status.Flying),
+                new Airplane(fourth, Status.Flying),
+                new Airplane(fifth, Status.Flying)
         ).forEach(airplaneRepository::save);
     }
 }
