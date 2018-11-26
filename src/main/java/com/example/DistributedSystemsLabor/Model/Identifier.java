@@ -10,11 +10,6 @@ public class Identifier
         Name = name;
     }
 
-    public Identifier(@NotNull String name, Airplane airplane) {
-        Name = name;
-        this.airplane = airplane;
-    }
-
     public Identifier() {
     }
 
@@ -23,8 +18,6 @@ public class Identifier
     private Long Number;
     @NotNull
     private String Name;
-    @OneToOne
-    private Airplane airplane;
 
     public Long getNumber() {
         return Number;
@@ -34,11 +27,11 @@ public class Identifier
         Number = number;
     }
 
-    public Airplane getAirplane() {
-        return airplane;
+    public String getName() {
+        return Name;
     }
 
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
+    public void setName(String name) {
+        Name = name;
     }
 }
