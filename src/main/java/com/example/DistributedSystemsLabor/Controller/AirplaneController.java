@@ -19,6 +19,9 @@ import java.util.stream.Stream;
 
 @RestController()
 public class AirplaneController {
+
+    private boolean IsInit = false;
+
     public AirplaneController()
     {
     }
@@ -71,9 +74,15 @@ public class AirplaneController {
         airplaneRepository.deleteById(id);
     }
 
-    @GetMapping("/initialise")
-    public List<Airplane> initialise()
+    @GetMapping("/airplane/initialize")
+    public void initialize()
     {
+        if(IsInit){
+            return;
+        }
+
+        IsInit = true;
+
         List<Airplane> airplanes = new ArrayList<>();
         int i=1;
 
@@ -90,6 +99,5 @@ public class AirplaneController {
             a.setIdentifier(new Identifier("TurkishAirlines"+ i++));
             identifierRepository.save(a.getIdentifier());
         }
-        return AllAirplanes();
     }
 }

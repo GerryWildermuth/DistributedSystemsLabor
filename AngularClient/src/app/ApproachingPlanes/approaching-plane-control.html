@@ -3,11 +3,26 @@
     <h2>Approaching Planes</h2>
   </div>
   <div class="flexContainer flexRows">
-    <div>
+    <div class="fullHeight">
       <p-listbox [options]="items" [(ngModel)]="selectedAirplane"></p-listbox>
     </div>
     <div class="fill">
-      <h2>Rightside content</h2>
+      <div class="headline">
+        <h3>Identifier: {{selectedAirplane?.identifier?.name || "None selected"}}</h3>
+      </div>
+      <div id="content" *ngIf="selectedAirplane">
+        <div>Identifier: {{selectedAirplane.identifier.name}}</div>
+        <div>Status: {{selectedAirplane.status}}</div>
+        <br>
+        <div>
+          <form>
+            <div>
+              EstimatedArrivalTime<br>
+              <input type="text"/>&nbsp;<input type="button" title="Landing Button" value="Permit Landing">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

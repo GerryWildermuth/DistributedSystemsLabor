@@ -3,11 +3,11 @@ import {HttpClient} from "@angular/common/http";
 import {WebRestService} from "../WebService/web-rest.service";
 import {IAirplane} from "../WebModels/iairplane";
 import {SelectItem} from "primeng/api";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'approaching-plane-control',
-  templateUrl: './approaching-plane-control.html'
+  templateUrl: './approaching-plane-control.html',
+  styleUrls: ['./approaching-plane-control.css']
 })
 export class ApproachingPlaneControl {
 
@@ -15,7 +15,7 @@ export class ApproachingPlaneControl {
 
   public items: SelectItem[] = [];
 
-  public selectedAirplane: SelectItem;
+  public selectedAirplane: IAirplane;
 
 
   public constructor(private http:HttpClient, private service: WebRestService){
@@ -25,7 +25,7 @@ export class ApproachingPlaneControl {
         this.appraochingAirplanes = value as IAirplane[];
         this.items = this.appraochingAirplanes.map(value => {
           return {
-            label: value.number.toString(),
+            label: value.identifier.name,
             value: value
           }
         })

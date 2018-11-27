@@ -1,4 +1,4 @@
 export interface IIdentifier {
-  Number:number,
-  Name:string
+  number:number,
+  name:string
 }
