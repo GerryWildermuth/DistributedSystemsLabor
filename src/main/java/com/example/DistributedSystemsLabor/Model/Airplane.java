@@ -21,6 +21,11 @@ public class Airplane
         this.status = status;
     }
 
+    public Airplane(Timestamp estimatedArrivalTime, Status status) {
+        EstimatedArrivalTime = estimatedArrivalTime;
+        this.status = status;
+    }
+
     public Airplane() {
     }
 
