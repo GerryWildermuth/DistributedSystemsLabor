@@ -6,10 +6,14 @@ import com.example.DistributedSystemsLabor.Model.Identifier;
 import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
 import com.example.DistributedSystemsLabor.ModelRepository.IdentifierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,10 +42,15 @@ public class AirplaneController {
     }
 
     @PostMapping("/airplane")
-    public void CreateAirplane(@RequestBody Airplane airplane,String IdentifierName)
+    public ResponseEntity<?> CreateAirplane(@RequestBody Airplane airplane, String IdentifierName, BindingResult result)
     {
-        airplaneRepository.save(airplane);
-        identifierRepository.save(new Identifier(IdentifierName,airplane));
+        if(result.hasErrors())
+        {
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        ResponseEntity<Airplane> airplaneResponseEntity = new ResponseEntity<>(airplaneRepository.save(airplane), HttpStatus.CREATED);
+        identifierRepository.save(new Identifier(IdentifierName));
+        return airplaneResponseEntity;
     }
 
     @GetMapping("/sample")
@@ -50,7 +59,7 @@ public class AirplaneController {
         Airplane airplane = new Airplane();
         airplane.setStatus(Status.Flying);
         airplaneRepository.save(airplane);
-        Identifier identifier = new Identifier("test",airplane);
+        Identifier identifier = new Identifier("test");
         identifierRepository.save(identifier);
         airplane.setIdentifier(identifier);
         airplaneRepository.save(airplane);
@@ -63,14 +72,24 @@ public class AirplaneController {
     }
 
     @GetMapping("/initialise")
-    public void initialise()
+    public List<Airplane> initialise()
     {
+        List<Airplane> airplanes = new ArrayList<>();
+        int i=1;
+
         Stream.of(
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), new Identifier("TurkishAirlines1"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines2"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines3"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines4"), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()),new Identifier("TurkishAirlines5"), Status.Flying)
-        ).forEach(airplaneRepository::save);
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
+                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying)
+        ).forEach(airplanes::add);
+
+        for (Airplane a : airplanes) {
+            airplaneRepository.save(a);
+            a.setIdentifier(new Identifier("TurkishAirlines"+ i++));
+            identifierRepository.save(a.getIdentifier());
+        }
+        return AllAirplanes();
     }
 }

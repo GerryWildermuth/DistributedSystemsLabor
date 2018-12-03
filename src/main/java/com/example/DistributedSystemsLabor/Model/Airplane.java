@@ -21,6 +21,11 @@ public class Airplane
         this.status = status;
     }
 
+    public Airplane(Timestamp estimatedArrivalTime, Status status) {
+        EstimatedArrivalTime = estimatedArrivalTime;
+        this.status = status;
+    }
+
     public Airplane() {
     }
 
@@ -44,6 +49,7 @@ public class Airplane
     @JoinColumn(unique = true)
     @Cascade(org.hibernate.annotations.CascadeType.DETACH)
     private Parking parking;
+
 
     public Runway getRunway() {
         return runway;

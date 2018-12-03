@@ -1,9 +1,6 @@
 package com.example.DistributedSystemsLabor.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,6 +18,16 @@ public class Airline
     private Long Id;
     @NotNull
     private String Name;
+    @ManyToOne
+    private Airplane airplane;
+
+    public Airplane getAirplane() {
+        return airplane;
+    }
+
+    public void setAirplane(Airplane airplane) {
+        this.airplane = airplane;
+    }
 
     public String getName() {
         return Name;
