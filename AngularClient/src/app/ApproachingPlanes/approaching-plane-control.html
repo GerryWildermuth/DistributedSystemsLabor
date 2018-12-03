@@ -1,28 +1,29 @@
-<div class="fullHeight">
-  <div class="headline">
-    <h2>Approaching Planes</h2>
-  </div>
-  <div class="flexContainer flexRows">
-    <div class="fullHeight">
+<div class="fill flex-container flex-rows">
+  <div class="flex-left flex-item">
+    <p-card>
+      <p-header><h2>Approaching Planes</h2></p-header>
+      <span *ngIf="items.length == 0">No Airplanes approaching</span>
       <p-listbox [options]="items" [(ngModel)]="selectedAirplane"></p-listbox>
+    </p-card>
+  </div>
+  <div class="flex-center flex-item">
+    <div *ngIf="selectedAirplane">
+      <p-card>
+        Identifier: {{selectedAirplane.identifier.name}}<br>
+        Status: {{selectedAirplane.status}}
+      </p-card>
     </div>
-    <div class="fill">
-      <div class="headline">
-        <h3>Identifier: {{selectedAirplane?.identifier?.name || "None selected"}}</h3>
-      </div>
-      <div id="content" *ngIf="selectedAirplane">
-        <div>Identifier: {{selectedAirplane.identifier.name}}</div>
-        <div>Status: {{selectedAirplane.status}}</div>
-        <br>
-        <div>
-          <form>
-            <div>
-              EstimatedArrivalTime<br>
-              <input type="text"/>&nbsp;<input type="button" title="Landing Button" value="Permit Landing">
-            </div>
-          </form>
-        </div>
-      </div>
+  </div>
+  <div class="flex-right flex-item">
+    <div *ngIf="selectedAirplane">
+      <p-card>
+        Estimated Arrival Time
+        <form>
+          <input type="number" name="Estimated Arrival Time in Minutes" [(ngModel)]="EAT"/>
+          &nbsp;
+          <input type="button" value="Permit Landing" (click)="PermitLanding()"/>
+        </form>
+      </p-card>
     </div>
   </div>
 </div>

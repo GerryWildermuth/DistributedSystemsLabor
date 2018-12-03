@@ -1,0 +1,24 @@
+<div class="fill flex-container flex-rows">
+  <div class="flex-left flex-item">
+    <p-card>
+      <p-header><h2>Landed Planes</h2></p-header>
+      <span *ngIf="items.length == 0">No Airplanes landing</span>
+      <p-listbox [options]="items" [(ngModel)]="selectedAirplane"></p-listbox>
+    </p-card>
+  </div>
+  <div class="flex-left flex-item flex-container flex-columns scrollbar-child">
+    <div *ngFor="let parking of parkingPositions; let i = index" class="">
+      <div class="p-card-margin">
+        <p-card>
+          <ng-container *ngIf="!parking.locked">
+            Parking Slot: {{parking.id}}<br>
+            <button pButton label="Assign Parking Position" class="ui-button-success"
+                    [disabled]="parking.locked || !selectedAirplane" (click)="ParkPlane(parking)"></button>
+          </ng-container>
+          <ng-container *ngIf="parking.locked">
+            Parking Slot {{parking.id}} taken by {{ GetAirplane(parking).identifier.name }}
+          </ng-container>
+        </p-card>
+      </div>
+  </div>
+</div>

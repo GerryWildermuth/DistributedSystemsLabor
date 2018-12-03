@@ -5,6 +5,7 @@ import com.example.DistributedSystemsLabor.Model.Airplane;
 import com.example.DistributedSystemsLabor.Model.Identifier;
 import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
 import com.example.DistributedSystemsLabor.ModelRepository.IdentifierRepository;
+import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
+@CrossOrigin
 @RestController()
 public class AirplaneController {
 
@@ -32,10 +33,27 @@ public class AirplaneController {
     @Autowired
     public IdentifierRepository identifierRepository;
 
+    @Autowired
+    public RunwayRepository runwayRepository;
 
     @GetMapping("/airplanes")
-    public List<Airplane> AllAirplanes(){
-        List<Airplane> airplanes = airplaneRepository.findAll();
+    public List<Airplane> AllAirplanes(@RequestParam(name="Status", defaultValue = "All") String status){
+        List<Airplane> airplanes;
+
+        switch(status){
+            case "Flying":
+                airplanes = airplaneRepository.findByStatus(Status.Flying);
+                break;
+            case "Landing":
+                airplanes = airplaneRepository.findByStatus(Status.Landing);
+                break;
+            case "Landed":
+                airplanes = airplaneRepository.findByStatus(Status.Landed);
+                break;
+            default:
+                airplanes = airplaneRepository.findAll();
+                break;
+        }
         return airplanes;
     }
 
@@ -56,6 +74,31 @@ public class AirplaneController {
         return airplaneResponseEntity;
     }
 
+    @GetMapping("/airplane/update")
+    public boolean UpdateAirplane(@RequestParam("Airplane") Long airplaneId, @RequestParam("RAT") Long rat){
+        Airplane airplane = airplaneRepository.getOne(airplaneId);
+
+        if(airplane != null){
+            airplane.setRealArrivalTime(new Timestamp(rat));
+            airplaneRepository.save(airplane);
+            return true;
+        }
+        return false;
+    }
+
+    @GetMapping("/airplane/permitlanding")
+    public boolean PermitLanding(@RequestParam Long id, @RequestParam Long EAT){
+        Airplane airplane = airplaneRepository.getOne(id);
+        if(airplane==null){
+            return false;
+        }
+        airplane.setStatus(Status.Landing);
+        airplane.setEstimatedArrivalTime(Timestamp.valueOf(LocalDateTime.now().plusMinutes(EAT)));
+        airplaneRepository.save(airplane);
+
+        return true;
+    }
+
     @GetMapping("/sample")
     public void CreateSample()
     {
@@ -72,32 +115,5 @@ public class AirplaneController {
     public void DeleteAirplane(@PathVariable Long id)
     {
         airplaneRepository.deleteById(id);
-    }
-
-    @GetMapping("/airplane/initialize")
-    public void initialize()
-    {
-        if(IsInit){
-            return;
-        }
-
-        IsInit = true;
-
-        List<Airplane> airplanes = new ArrayList<>();
-        int i=1;
-
-        Stream.of(
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying),
-                new Airplane(Timestamp.valueOf(LocalDateTime.now()), Status.Flying)
-        ).forEach(airplanes::add);
-
-        for (Airplane a : airplanes) {
-            airplaneRepository.save(a);
-            a.setIdentifier(new Identifier("TurkishAirlines"+ i++));
-            identifierRepository.save(a.getIdentifier());
-        }
     }
 }

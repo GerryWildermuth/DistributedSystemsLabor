@@ -10,6 +10,10 @@ import java.sql.Timestamp;
 @Entity
 public class Airplane
 {
+    public Airplane(Status status){
+        this.status = status;
+    }
+
     public Airplane(Identifier identifier, Status status) {
         this.identifier = identifier;
         this.status = status;

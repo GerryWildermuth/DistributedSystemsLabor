@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {WebRestService} from "./WebService/web-rest.service";
-import {serialize} from "@angular/compiler/src/i18n/serializers/xml_helper";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,19 +9,15 @@ import {serialize} from "@angular/compiler/src/i18n/serializers/xml_helper";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Verteilte Systeme Labor';
+  public title = 'Verteilte Systeme Labor';
 
-  public constructor(private http:HttpClient, private service: WebRestService){
+  public constructor(private http:HttpClient, private service: WebRestService, private router: Router){
     this.InitService();
   }
 
   private InitService(){
     // Init Airplanes
-    this.http.get(this.service.GetBaseUrl()+'airline/initialize')
-      .subscribe((value) => {console.log("Initialized Airlines")})
-
-    this.http.get(this.service.GetBaseUrl()+'airplane/initialize')
-      .subscribe((value) => {console.log("Initialized Airplanes")});
+    this.http.get(this.service.BaseUrl+'Init')
+      .subscribe((value) => {console.log("Service Initialized")})
   }
 }
-;

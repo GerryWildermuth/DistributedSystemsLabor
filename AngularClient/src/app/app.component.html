@@ -1,4 +1,52 @@
-<div class="flexContainer flexColumns">
+<div id="app-container" class="flex-container flex-columns">
+  <div id="navmenu">
+    <div id="navmenu-header">
+      <h1>Verteilte Systeme Labor</h1>
+    </div>
+    <div id="toolbar">
+      <p-toolbar>
+        <div class="ui-toolbar-group-left">
+          <a routerLink="/ApproachingPlaneControl" routerLinkActive="active">
+            <button pButton type="button" label="Approaching Plane Control" icon="fa fa-plane"></button>
+          </a>
+          &nbsp;
+          <a routerLink="/LandingPlaneControl" routerLinkActive="active">
+            <button pButton type="button" label="Landing Plane Control" icon="fa fa-download"></button>
+          </a>
+          &nbsp;
+          <a routerLink="/ParkingPlaneControl" routerLinkActive="active">
+            <button pButton type="button" label="Parking Plane Control" icon="fa fa-download"></button>
+          </a>
+          &nbsp;
+          <a routerLink="/TimeTable" routerLinkActive="active">
+            <button pButton type="button" label="Time Table" icon="fa fa-download"></button>
+          </a>
+        </div>
+      </p-toolbar>
+    </div>
+  </div>
+  <div id="main-content" class="fill flex-container flex-columns">
+    <div class="main-header">
+      <h2>{{router.url}}</h2>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="flexContainer flexColumns">
   <div id="navmenu">
     <div style="text-align:center">
       <h1>
@@ -16,4 +64,4 @@
   <div id="maincontent">
     <router-outlet></router-outlet>
   </div>
-</div>
+</div>!-->

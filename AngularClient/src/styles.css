@@ -4,33 +4,56 @@
   margin: 0;
 }
 
-html, body, app-root {
+html, body{
   height: 100%;
+  overflow:auto;
 }
 
-.headline {
-  text-align: center;
-  border-bottom: solid 1px black;
-  margin-bottom: 10px;
-}
-
-.flexContainer {
+.flex-container {
   height: 100%;
   display: flex;
 }
 
-.flexColumns {
+.flex-columns {
   flex-direction: column;
 }
 
-.flexRows {
+.flex-rows {
   flex-direction: row;
 }
 
-.fullHeight {
-  height: 100%;
+.flex-item {
+  flex-grow: 1;
+  text-align: center;
+  padding: 2em;
+  text-align: left;
+  margin: 0 5px;
 }
 
 .fill {
   flex: 1;
 }
+
+.p-card-margin {
+  margin: 2px 0;
+}
+
+.scrollbar {
+  overflow: scroll;
+}
+
+.scrollbar-child{
+  overflow-y: auto;
+  max-height: 550px;
+}
+
+/*
+
+
+
+.fullHeight {
+  height: 100%;
+}
+
+
+*/

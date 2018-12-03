@@ -31,7 +31,7 @@ public class ParkingController {
     @Autowired
     public AirplaneRepository airplaneRepository;
 
-    @GetMapping("/parking's")
+    @GetMapping("/parkings")
     public List<Parking> AllParkings(){
         return parkingRepository.findAll();
     }
@@ -54,16 +54,40 @@ public class ParkingController {
     }
 
     @GetMapping("/parking/park")
-    public void ParkingPlane(@PathVariable Long id)
+    public boolean ParkingPlane(@RequestParam("Slot") Long parkingId, @RequestParam("Airplane") Long airplaneId)
     {
-        Airplane airplane = airplaneRepository.getOne(id);
-        if(airplane.getStatus()== Status.Landed)
-        {
-            if(airplane.getParking()!=null)
-            {
-                airplane.setStatus(Status.Parked);
-            }
+        Airplane airplane = airplaneRepository.getOne(airplaneId);
+
+        if(airplane == null){
+            return false;
         }
+
+        if(airplane.getStatus() == Status.Landed)
+        {
+            // Lock Slot
+            Parking parking = parkingRepository.getOne(parkingId);
+
+            if(parking == null){
+                return false;
+            }
+
+            parking.setLocked(true);
+            parkingRepository.save(parking);
+
+            // Park Plane
+            airplane.setStatus(Status.Parked);
+            airplane.setParking(parking);
+
+            // Free runway
+            Runway runway = airplane.getRunway();
+            airplane.setRunway(null);
+            runway.setLocked(false);
+            runwayRepository.save(runway);
+
+            airplaneRepository.save(airplane);
+            return true;
+        }
+        return false;
     }
 
     @GetMapping("/parking/unlock")

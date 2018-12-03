@@ -13,8 +13,6 @@ import java.util.List;
 @RestController
 public class AirlineController {
 
-    private boolean IsInit = false;
-
     public AirlineController() {
     }
 
@@ -46,19 +44,5 @@ public class AirlineController {
     public void DeleteAirline(@PathVariable Long id)
     {
         airlineRepository.deleteById(id);
-    }
-
-    @GetMapping("/airline/initialize")
-    public void initialize()
-    {
-        // Run Init Code only once
-        if(IsInit){
-            return;
-        }
-        IsInit = true;
-        Airline airline = new Airline("Esslingen Airlines");
-        airlineRepository.save(airline);
-
-
     }
 }

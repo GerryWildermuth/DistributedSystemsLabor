@@ -1,0 +1,20 @@
+<div class="fill flex-container">
+  <p-table [value]="airplanes">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Identifier</th>
+        <th>Estimated Arrival Time</th>
+        <th>Real Arrival Time</th>
+        <th>Status</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-plane>
+      <tr>
+        <td>{{ plane.identifier.name }}</td>
+        <td>{{ GetDateTimeString(plane.estimatedArrivalTime) || "No Information"}}</td>
+        <td>{{ GetDateTimeString(plane.realArrivalTime) || "No Information" }}</td>
+        <td>{{ plane.status }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

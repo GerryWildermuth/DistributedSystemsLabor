@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Runway
 {
     public Runway(boolean locked) {
-        Locked = locked;
+        this.locked = locked;
     }
 
     public Runway() {
@@ -19,14 +19,17 @@ public class Runway
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    private boolean Locked;
+    private boolean locked;
 
     public boolean isLocked() {
-        return Locked;
+        return locked;
     }
 
     public void setLocked(boolean locked) {
-        Locked = locked;
+        this.locked = locked;
+    }
+    public boolean getLocked() {
+        return locked;
     }
 
     public Long getId() {

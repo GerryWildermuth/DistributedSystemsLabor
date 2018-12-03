@@ -1,0 +1,44 @@
+<div class="fill flex-container flex-rows">
+  <div class="flex-left flex-item">
+    <p-card>
+      <p-header><h2>Landing Planes</h2></p-header>
+      <span *ngIf="items.length == 0">No Airplanes landing</span>
+      <p-listbox [options]="items" [(ngModel)]="selectedAirplane"></p-listbox>
+    </p-card>
+  </div>
+  <div class="flex-left flex-item flex-container flex-columns">
+    <div *ngFor="let runway of runways; let i = index">
+      <div class="p-card-margin">
+        <p-card>
+          <div>
+            <h3>Runway {{runway.id}}</h3>
+            <span *ngIf="GetAirplane(runway)">
+              <ng-container *ngIf="GetAirplane(runway).status == 'Landing'">
+                Assigned Airplane: {{GetAirplane(runway)?.identifier?.name || "None"}} |
+                EstimatedArrivalTime: {{ GetDateTimeString(GetAirplane(runway)?.estimatedArrivalTime) || "-"}} |
+                Status: {{ GetAirplane(runway).status }}
+              </ng-container>
+              <ng-container *ngIf="GetAirplane(runway).status == 'Landed'">
+                Plane {{ GetAirplane(runway).identifier.name }} landed.
+              </ng-container>
+            </span>
+          </div>
+          <br>
+          <div>
+            <ng-container *ngIf="!GetAirplane(runway)">
+              <button pButton label="Assign Runway" class="ui-button-success"
+                    [disabled]="runway.locked || !selectedAirplane" (click)="ReserveRunway(runway)"></button>
+            </ng-container>
+            <ng-container *ngIf="GetAirplane(runway)?.status == 'Landed' && !GetAirplane(runway).realArrivalTime">
+              <button pButton label="Update Real Arrival Time" class="ui-button-info"
+                      [disabled]="!runway.locked" (click)="UpdateRAT(GetAirplane(runway))"></button>
+            </ng-container>
+            <ng-container *ngIf="GetAirplane(runway)?.status == 'Landed' && GetAirplane(runway).realArrivalTime">
+              Plane arrived at: {{ GetDateTimeString(GetAirplane(runway).realArrivalTime) }}
+            </ng-container>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

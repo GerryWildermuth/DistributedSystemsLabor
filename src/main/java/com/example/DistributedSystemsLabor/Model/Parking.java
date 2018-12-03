@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Parking
 {
     public Parking(boolean locked) {
-        Locked = locked;
+        this.locked = locked;
     }
 
     public Parking() {
@@ -19,7 +19,7 @@ public class Parking
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    private boolean Locked;
+    private boolean locked;
 
     public Long getId() {
         return Id;
@@ -30,10 +30,10 @@ public class Parking
     }
 
     public boolean isLocked() {
-        return Locked;
+        return locked;
     }
 
     public void setLocked(boolean locked) {
-        Locked = locked;
+        this.locked = locked;
     }
 }

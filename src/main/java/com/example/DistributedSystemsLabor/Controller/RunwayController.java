@@ -18,10 +18,14 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.ConsoleHandler;
 
 //Maximal 4
 @RestController
 public class RunwayController {
+
+    
 
     public RunwayController() {
     }
@@ -59,55 +63,66 @@ public class RunwayController {
     }
 
     @GetMapping("runway/landing")
-    public void LandingPlane(@PathVariable Long id)
+    public boolean LandingPlane(@RequestParam("Airplane") Long airplaneId, @RequestParam("Runway") Long runwayId)
     {
-        Airplane airplane = airplaneRepository.getOne(id);
-        if(airplane.getStatus()== Status.Landing)
-        {
-            Collection<Parking> parkings = parkingRepository.findAll();
-            Collection<Runway> runways = runwayRepository.findAll();
-            for(Parking parking: parkings)
-            {
-                if(parking.isLocked()==false)
-                {
-                    for(Runway runway: runways)
-                    {
-                        if(runway.isLocked()==false)
-                        {
-                            runway.setLocked(true);
-                            parking.setLocked(true);
-                            airplane.setRunway(runway);
-                            airplane.setParking(parking);
-                            airplane.setRealArrivalTime(Timestamp.valueOf(LocalDateTime.now()));
-                            airplane.setStatus(Status.Landed);
-                            runwayRepository.save(runway);
-                            parkingRepository.save(parking);
-                            airplaneRepository.save(airplane);
-                        }
-                    }
-                }
-            }
+        Runway runway = runwayRepository.getOne(runwayId);
+
+        if(runway.getLocked()){
+            return false;
         }
+
+        Airplane airplane = airplaneRepository.getOne(airplaneId);
+
+        if(airplane.getStatus() == Status.Landing && airplane.getRunway() == null)
+        {
+            runway.setLocked(true);
+            runwayRepository.save(runway);
+
+            airplane.setRunway(runway);
+            airplaneRepository.save(airplane);
+
+            new Thread( () -> SimulateLanding(airplane)).start();
+            return true;
+        }
+
+        return false;
     }
 
     @GetMapping("/runway/unlock")
-    public void RunwayUnlock(@PathVariable Long id)
+    public boolean RunwayUnlock(@RequestParam("Airplane") Long airplaneId)
     {
-        Airplane airplane = airplaneRepository.getOne(id);
+        Airplane airplane = airplaneRepository.getOne(airplaneId);
         Runway runway = airplane.getRunway();
-        if(airplane.getStatus()== Status.Flying || airplane.getStatus()== Status.Parked)
+        if(airplane.getStatus()== Status.Parked)
         {
             if(runway!=null)
             {
                 airplane.setRunway(null);
                 runway.setLocked(false);
+                runwayRepository.save(runway);
+                airplaneRepository.save(airplane);
+                return true;
             }
         }
+        return false;
     }
 
     @DeleteMapping("/runway/{id}")
     public void DeleteRunway(@PathVariable Long id)
     {
         runwayRepository.deleteById(id);
+    }
+
+    private void SimulateLanding(Airplane airplane){
+        long realArrivel = airplane.getEstimatedArrivalTime().getTime() + ((long)(Math.random() * 60000L) - 30000L);
+        long timeDiff = realArrivel - System.currentTimeMillis();
+        try {
+            Thread.sleep(timeDiff);
+        } catch(Exception e){
+            System.out.println("Error while landing "+ airplane.getIdentifier().getName());
+            System.out.println(e);
+        }
+        airplane.setStatus(Status.Landed);
+        airplaneRepository.save(airplane);
     }
 }

@@ -8,19 +8,35 @@ import { RouterModule, Routes } from '@angular/router';
 import { ToolbarModule } from 'primeng/toolbar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ListboxModule } from 'primeng/listbox';
-
+import { CardModule } from 'primeng/card';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primeng/table';
 
 import { AppComponent } from './app.component';
-import {ApproachingPlaneControl} from './ApproachingPlanes/approaching-plane-control';
+import { ApproachingPlaneControl } from './ApproachingPlanes/approaching-plane-control';
+import { LandingPlaneControl } from './LandingPlanes/landing-plane-control.component';
+import { ParkingPlaneControl } from './ParkingPlanes/parking-plane-control.component';
+import { TimeTable } from './TimeTable/time-table.component';
 
 const appRoutes: Routes = [
   {
-    path: 'APC',
+    path: 'TimeTable',
+    component: TimeTable
+  },
+  {
+    path: 'ParkingPlaneControl',
+    component: ParkingPlaneControl
+  },
+  {
+    path: 'LandingPlaneControl',
+    component: LandingPlaneControl
+  },
+  {
+    path: 'ApproachingPlaneControl',
     component: ApproachingPlaneControl,
-    data: { title: 'Heroes List' }
   },
   { path: '',
-    redirectTo: '/APC',
+    redirectTo: '/ApproachingPlaneControl',
     pathMatch: 'full'
   }
 ];
@@ -29,7 +45,10 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ApproachingPlaneControl
+    ApproachingPlaneControl,
+    LandingPlaneControl,
+    ParkingPlaneControl,
+    TimeTable
   ],
   imports: [
     RouterModule.forRoot(
@@ -42,6 +61,9 @@ const appRoutes: Routes = [
     ToolbarModule,
     SplitButtonModule,
     ListboxModule,
+    CardModule,
+    MultiSelectModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

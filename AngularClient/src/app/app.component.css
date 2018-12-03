@@ -1,3 +1,30 @@
+#header {
+  text-align: center;
+  border-bottom: solid 1px black;
+  margin-bottom: 10px;
+}
+
+#app-container {
+  height: 100vh;
+  padding:10px;
+  overflow: hidden;
+}
+
+#navmenu-header {
+  text-align: center;
+  margin-bottom: 10px;
+  flex-grow: 0;
+}
+
+.main-header {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+:host /deep/ router-outlet + * {
+  flex-grow: 1;
+}
+/*
 * {
   padding: 0;
   margin: 0 8px;
@@ -7,11 +34,10 @@ button {
   margin: 0 5px;
 }
 
-#navmenu {
-  margin-bottom: 10px;
-  flex-grow: 0;
-}
 
 #maincontent {
   flex-grow: 1;
 }
+*/
+
+

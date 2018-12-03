@@ -4,8 +4,8 @@ import {IParking} from "./iparking";
 
 export interface IAirplane {
   number:number,
-  estimatedArrivalTime:Date,
-  realArrivalTime:Date,
+  estimatedArrivalTime:number,
+  realArrivalTime:number,
   identifier:IIdentifier,
   status:string,
   runway:IRunway,
