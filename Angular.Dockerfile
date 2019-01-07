@@ -1,9 +1,9 @@
-FROM node:11.6.0
+FROM node:10.15.0
 
 RUN mkdir -p /opt/DistributedSystemsLabor
 WORKDIR /opt/DistributedSystemsLabor
 
-RUN npm install -g @angular/cli@7.1.4
+RUN npm install -g @angular/cli@6.4.1
 
 COPY AngularClient/ /opt/DistributedSystemsLabor
 
