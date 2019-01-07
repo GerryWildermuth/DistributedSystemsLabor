@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>MyDemo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>DistributedSystemsLabor</artifactId>
+	<version>0.0.5</version>
 	<packaging>jar</packaging>
 
-	<name>MyDemo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>DistributedSystemsLabor</name>
+	<description>DistSysLab</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -76,6 +76,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${project.version}</version>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
