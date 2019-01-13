@@ -12,7 +12,7 @@ export class WebRestService {
   private airplanes: IAirplane[] = [];
   private parkingPositions: IParking[] = [];
 
-  public readonly BaseUrl:string = 'http://localhost:8080/';
+  public readonly BaseUrl:string = 'http://192.168.99.100:8080/';
   public OnLoad:EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private http:HttpClient, private sync: SynchronizerService) {

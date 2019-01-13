@@ -1,0 +1,28 @@
+version: '2'
+services:
+  appangular:
+    image: gerry1313/angulardistsys
+    expose:
+      - 4200
+    ports:
+      - 4200:4200
+    depends_on:
+      - appspring
+  appspring:
+    image: gerry1313/springdistsys
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - mypostgres
+  mypostgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
+
+
