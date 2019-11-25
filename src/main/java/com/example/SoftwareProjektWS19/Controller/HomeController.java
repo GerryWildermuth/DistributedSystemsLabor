@@ -1,17 +1,14 @@
-package com.example.DistributedSystemsLabor.Controller;
+package com.example.SoftwareProjektWS19.Controller;
 
-import com.example.DistributedSystemsLabor.Enums.Status;
-import com.example.DistributedSystemsLabor.Model.*;
-import com.example.DistributedSystemsLabor.ModelRepository.*;
+import com.example.SoftwareProjektWS19.Enums.Status;
+import com.example.SoftwareProjektWS19.Model.*;
+import com.example.SoftwareProjektWS19.ModelRepository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.SecureRandom;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;

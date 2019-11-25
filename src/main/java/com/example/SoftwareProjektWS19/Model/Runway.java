@@ -1,4 +1,4 @@
-package com.example.DistributedSystemsLabor.Model;
+package com.example.SoftwareProjektWS19.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,13 +7,13 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Parking
+public class Runway
 {
-    public Parking(boolean locked) {
+    public Runway(boolean locked) {
         this.locked = locked;
     }
 
-    public Parking() {
+    public Runway() {
     }
 
     @Id
@@ -21,19 +21,22 @@ public class Parking
     private Long Id;
     private boolean locked;
 
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
     public boolean isLocked() {
         return locked;
     }
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+    public boolean getLocked() {
+        return locked;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 }

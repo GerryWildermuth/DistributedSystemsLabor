@@ -1,8 +1,7 @@
-package com.example.DistributedSystemsLabor.Controller;
+package com.example.SoftwareProjektWS19.Controller;
 
-import com.example.DistributedSystemsLabor.Model.Airline;
-import com.example.DistributedSystemsLabor.Model.Airplane;
-import com.example.DistributedSystemsLabor.ModelRepository.AirlineRepository;
+import com.example.SoftwareProjektWS19.Model.Airline;
+import com.example.SoftwareProjektWS19.ModelRepository.AirlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

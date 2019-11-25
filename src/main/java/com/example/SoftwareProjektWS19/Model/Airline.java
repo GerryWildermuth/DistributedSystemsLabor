@@ -1,4 +1,4 @@
-package com.example.DistributedSystemsLabor.Model;
+package com.example.SoftwareProjektWS19.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

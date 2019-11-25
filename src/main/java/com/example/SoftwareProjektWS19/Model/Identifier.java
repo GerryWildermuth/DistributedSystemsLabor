@@ -1,6 +1,9 @@
-package com.example.DistributedSystemsLabor.Model;
+package com.example.SoftwareProjektWS19.Model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity

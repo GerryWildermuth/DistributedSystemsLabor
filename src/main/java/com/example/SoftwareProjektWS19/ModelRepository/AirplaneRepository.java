@@ -1,7 +1,7 @@
-package com.example.DistributedSystemsLabor.ModelRepository;
+package com.example.SoftwareProjektWS19.ModelRepository;
 
-import com.example.DistributedSystemsLabor.Enums.Status;
-import com.example.DistributedSystemsLabor.Model.Airplane;
+import com.example.SoftwareProjektWS19.Enums.Status;
+import com.example.SoftwareProjektWS19.Model.Airplane;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

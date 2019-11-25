@@ -1,6 +1,6 @@
-package com.example.DistributedSystemsLabor.Model;
+package com.example.SoftwareProjektWS19.Model;
 
-import com.example.DistributedSystemsLabor.Enums.Status;
+import com.example.SoftwareProjektWS19.Enums.Status;
 import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 

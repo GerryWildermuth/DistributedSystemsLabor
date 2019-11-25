@@ -1,25 +1,18 @@
-package com.example.DistributedSystemsLabor.Controller;
+package com.example.SoftwareProjektWS19.Controller;
 
-import com.example.DistributedSystemsLabor.Enums.Status;
-import com.example.DistributedSystemsLabor.Model.Airplane;
-import com.example.DistributedSystemsLabor.Model.Identifier;
-import com.example.DistributedSystemsLabor.Model.Parking;
-import com.example.DistributedSystemsLabor.Model.Runway;
-import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
-import com.example.DistributedSystemsLabor.ModelRepository.ParkingRepositiory;
-import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
+import com.example.SoftwareProjektWS19.Enums.Status;
+import com.example.SoftwareProjektWS19.Model.Airplane;
+import com.example.SoftwareProjektWS19.Model.Runway;
+import com.example.SoftwareProjektWS19.ModelRepository.AirplaneRepository;
+import com.example.SoftwareProjektWS19.ModelRepository.ParkingRepositiory;
+import com.example.SoftwareProjektWS19.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.logging.ConsoleHandler;
 
 //Maximal 4
 @RestController
