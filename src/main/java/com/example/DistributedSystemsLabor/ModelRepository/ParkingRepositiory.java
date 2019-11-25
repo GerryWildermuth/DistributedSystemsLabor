@@ -1,6 +1,6 @@
-package com.example.SoftwareProjektWS19.ModelRepository;
+package com.example.DistributedSystemsLabor.ModelRepository;
 
-import com.example.SoftwareProjektWS19.Model.Parking;
+import com.example.DistributedSystemsLabor.Model.Parking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

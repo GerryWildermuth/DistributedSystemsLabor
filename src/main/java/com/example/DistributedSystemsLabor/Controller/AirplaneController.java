@@ -1,11 +1,11 @@
-package com.example.SoftwareProjektWS19.Controller;
+package com.example.DistributedSystemsLabor.Controller;
 
-import com.example.SoftwareProjektWS19.Enums.Status;
-import com.example.SoftwareProjektWS19.Model.Airplane;
-import com.example.SoftwareProjektWS19.Model.Identifier;
-import com.example.SoftwareProjektWS19.ModelRepository.AirplaneRepository;
-import com.example.SoftwareProjektWS19.ModelRepository.IdentifierRepository;
-import com.example.SoftwareProjektWS19.ModelRepository.RunwayRepository;
+import com.example.DistributedSystemsLabor.Enums.Status;
+import com.example.DistributedSystemsLabor.Model.Airplane;
+import com.example.DistributedSystemsLabor.Model.Identifier;
+import com.example.DistributedSystemsLabor.ModelRepository.AirplaneRepository;
+import com.example.DistributedSystemsLabor.ModelRepository.IdentifierRepository;
+import com.example.DistributedSystemsLabor.ModelRepository.RunwayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin

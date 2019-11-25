@@ -1,4 +1,4 @@
-package com.example.SoftwareProjektWS19.Model;
+package com.example.DistributedSystemsLabor.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

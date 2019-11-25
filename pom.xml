@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>StudienProjektWS19</artifactId>
+	<artifactId>DistributedSystemsLabor</artifactId>
 	<version>0.0.5</version>
 	<packaging>jar</packaging>
 
-	<name>StudienProjektWS19</name>
+	<name>DistributedSystemsLabor</name>
 	<description>DistSysLab</description>
 
 	<parent>

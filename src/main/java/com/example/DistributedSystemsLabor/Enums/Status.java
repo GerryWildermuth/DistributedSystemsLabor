@@ -1,4 +1,4 @@
-package com.example.SoftwareProjektWS19.Enums;
+package com.example.DistributedSystemsLabor.Enums;
 
 public enum Status
 {

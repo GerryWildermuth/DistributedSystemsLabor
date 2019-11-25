@@ -7,7 +7,7 @@ WORKDIR /AngularClient
 
 # Install app dependencies
 COPY package.json package-lock.json /AngularClient/
-#COPY AngularClient/ /opt/StudienProjektWS19 #old
+#COPY AngularClient/ /opt/DistributedSystemsLabor #old
 
 RUN cd /AngularClient && npm set progress=false && npm install
 #-g @angular/cli@6.2.8
